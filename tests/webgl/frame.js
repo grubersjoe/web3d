@@ -1,12 +1,12 @@
 function WebGLFrame() {
 
-	var pub = {
-		name: 'webgl'
-	};
+    var pub = {
+        name: 'webgl'
+    };
 
-	var grids = [];
-	var gridSize = 125;
-	var gridStep = 25;
+    var grids = [];
+    var gridSize = 125;
+    var gridStep = 25;
 
     var cfg = {
         animation: {
@@ -17,18 +17,18 @@ function WebGLFrame() {
     };
 
     var def = {
-		cam: {
-			pos: {
-				x: -340,
-				y:  220,
-				z:  340
-			},
-			lookAt: {
-				x: 0,
-				y: 0.66 * gridSize,
-				z: 0
-			}
-		}
+        cam: {
+            pos: {
+                x: -340,
+                y:  220,
+                z:  340
+            },
+            lookAt: {
+                x: 0,
+                y: 0.66 * gridSize,
+                z: 0
+            }
+        }
     };
 
     var scene, camera, ambientLight, dirLight;
@@ -66,11 +66,11 @@ function WebGLFrame() {
      * Resets the canvas
      */
     pub.clear = function () {
-		cfg.animation.rotate = false;
-		cfg.shadows = false;
-		geometry = null;
-		texture = null;
-		setCamera(def.cam.pos, def.cam.lookAt);
+        cfg.animation.rotate = false;
+        cfg.shadows = false;
+        geometry = null;
+        texture = null;
+        setCamera(def.cam.pos, def.cam.lookAt);
         scene.remove(meshes);
         meshes = new THREE.Object3D();
         scene.add(meshes);
@@ -118,10 +118,10 @@ function WebGLFrame() {
                 mesh.scale.z = scale;
             }
 
-			if (cfg.shadows) {
-				mesh.castShadow = true;
-				mesh.receiveShadow = true;
-			}
+            if (cfg.shadows) {
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+            }
 
             if (texture) {
                 mesh.material.map = texture;
@@ -200,10 +200,10 @@ function WebGLFrame() {
 
     };
 
-	/**
-	 * Tests browser support for WebGL
-	 * @returns {string} Status of support
-	 */
+    /**
+     * Tests browser support for WebGL
+     * @returns {string} Status of support
+     */
     pub.browserSupportTest = function () {
         if (Boolean(window.WebGLRenderingContext) === false) {
             return 'UNSUPPORTED';
@@ -230,7 +230,7 @@ function WebGLFrame() {
      */
     pub.realismTest = function (objFile, scale, texureFile) {
         cfg.animation.rotate = true;
-		cfg.shadows = true;
+        cfg.shadows = true;
 
         setCamera({
            x: 0.33 * gridSize,
@@ -287,9 +287,9 @@ function WebGLFrame() {
         }
     };
 
-	/**
-	 * Sets up camera
-	 */
+    /**
+     * Sets up camera
+     */
     function setupCamera() {
         var ww = window.innerWidth;
         var wh = window.innerHeight;
@@ -298,38 +298,38 @@ function WebGLFrame() {
         camera.position.y = def.cam.pos.y;
         camera.position.z = def.cam.pos.z;
         camera.up = new THREE.Vector3(0, 1, 0);
-		var lookAt = def.cam.lookAt;
+        var lookAt = def.cam.lookAt;
         camera.lookAt(new THREE.Vector3(lookAt.x, lookAt.y, lookAt.z));
     }
 
-	/**
-	 * Sets camera position and optionally look at point
-	 * @param {object} pos Position vector
-	 * @param {object} lookAt Look at vector
-	 */
-	function setCamera(pos, lookAt) {
-		camera.position.x = pos.x;
-		camera.position.y = pos.y;
-		camera.position.z = pos.z;
+    /**
+     * Sets camera position and optionally look at point
+     * @param {object} pos Position vector
+     * @param {object} lookAt Look at vector
+     */
+    function setCamera(pos, lookAt) {
+        camera.position.x = pos.x;
+        camera.position.y = pos.y;
+        camera.position.z = pos.z;
 
-		if (lookAt) {
-			controls.target.x = lookAt.x;
-			controls.target.y = lookAt.y;
-			controls.target.z = lookAt.z;
-		}
-	}
+        if (lookAt) {
+            controls.target.x = lookAt.x;
+            controls.target.y = lookAt.y;
+            controls.target.z = lookAt.z;
+        }
+    }
 
-	/**
-	 * Orbit navigation
-	 */
+    /**
+     * Orbit navigation
+     */
     function setupControls() {
         controls = new THREE.OrbitControls(camera);
         controls.target = new THREE.Vector3(0, 0.66 * gridSize, 0);
     }
 
-	/**
-	 * Create the WebGLRenderer
-	 */
+    /**
+     * Create the WebGLRenderer
+     */
     function setupRenderer() {
         renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -341,16 +341,16 @@ function WebGLFrame() {
         document.body.appendChild(renderer.domElement);
     }
 
-	/**
-	 * Sets up illumination
-	 */
+    /**
+     * Sets up illumination
+     */
     function setupIllumination() {
         ambientLight = new THREE.AmbientLight(0x333333);
         dirLight = new THREE.DirectionalLight(0xffffff);
         dirLight.position.set(-gridSize, 0.5 * gridSize, 0.5 * gridSize);
 
         var d = 200;
-		dirLight.castShadow = true;
+        dirLight.castShadow = true;
         dirLight.shadowCameraLeft   = -d;
         dirLight.shadowCameraRight  =  d;
         dirLight.shadowCameraTop    =  d;
@@ -358,17 +358,17 @@ function WebGLFrame() {
         dirLight.shadowCameraNear = 0.1;
         dirLight.shadowCameraFar = 400;
         dirLight.shadowBias = 0.0001;
-		dirLight.shadowDarkness = 0.3;
-		dirLight.shadowMapWidth = 2048;
-		dirLight.shadowMapHeight = 2048;
+        dirLight.shadowDarkness = 0.3;
+        dirLight.shadowMapWidth = 2048;
+        dirLight.shadowMapHeight = 2048;
 
         scene.add(ambientLight);
         scene.add(dirLight);
     }
 
-	/**
-	 * A single frame
-	 */
+    /**
+     * A single frame
+     */
     function tick() {
         if (window.parent.app.stats) {
             window.parent.app.stats.update();
@@ -385,9 +385,9 @@ function WebGLFrame() {
         requestAnimationFrame(tick);
     }
 
-	/**
-	 * Animation methode
-	 */
+    /**
+     * Animation methode
+     */
     function animate() {
         var i = 0;
         meshes.traverse(function (child) {
@@ -408,18 +408,18 @@ function WebGLFrame() {
         });
     }
 
-	/**
-	 * Render function
-	 */
+    /**
+     * Render function
+     */
     function render() {
         renderer.render(scene, camera);
     }
 
-	/**
-	 * Helper function: Create a Three.js material
-	 * @param {number} color Hex code of color
-	 * @returns {*} Material
-	 */
+    /**
+     * Helper function: Create a Three.js material
+     * @param {number} color Hex code of color
+     * @returns {*} Material
+     */
     function createMaterial(color) {
         var material;
         color = color || (Math.random() * 0xFFFFFF << 0);
@@ -429,8 +429,8 @@ function WebGLFrame() {
                 material = new THREE.MeshPhongMaterial({
                     color: color,
                     shading: materialParams.shading,
-					shininess: 100
-				});
+                    shininess: 100
+                });
                 break;
             default:
             case 'lambert':
@@ -443,10 +443,10 @@ function WebGLFrame() {
         return material;
     }
 
-	/**
-	 * Calculates UVs with bounding boxes automatically
-	 * @param geometry
-	 */
+    /**
+     * Calculates UVs with bounding boxes automatically
+     * @param geometry
+     */
     function assignUVs(geometry) {
         geometry.computeBoundingBox();
 
@@ -476,9 +476,9 @@ function WebGLFrame() {
         geometry.uvsNeedUpdate = true;
     }
 
-	/**
-	 * Creates the coordinate system
-	 */
+    /**
+     * Creates the coordinate system
+     */
     function createCoordSystem() {
         var gridColor = new THREE.Color(0xcccccc);
 
@@ -504,9 +504,9 @@ function WebGLFrame() {
         }
     }
 
-	/**
-	 * Event handler for window resize
-	 */
+    /**
+     * Event handler for window resize
+     */
     function onWindowResize() {
         var ww = window.innerWidth;
         var wh = window.innerHeight;

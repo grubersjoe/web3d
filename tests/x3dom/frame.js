@@ -17,50 +17,50 @@ function X3DOMFrame() {
 
     var mouseHandlers;
 
-	/**
-	 * Triggered on X3DOM ready event
-	 */
+    /**
+     * Triggered on X3DOM ready event
+     */
     x3dom.runtime.ready = function () {
         x3d.style.width = window.innerWidth;
         x3d.style.height = window.innerHeight;
         pushFramesToParent();
     };
 
-	/**
-	 * Clear the canvas
-	 */
+    /**
+     * Clear the canvas
+     */
     pub.clear = function () {
         masterTrans.html('');
         model = null;
     };
 
-	/**
-	 * Returns number of models
-	 * @returns {number} Number of models
-	 */
+    /**
+     * Returns number of models
+     * @returns {number} Number of models
+     */
     pub.getModelCount = function () {
         return document.getElementsByTagName('Shape').length;
     };
 
-	/**
-	 * Returns number of triangles
-	 * @returns {number} Number of triangles
-	 */
+    /**
+     * Returns number of triangles
+     * @returns {number} Number of triangles
+     */
     pub.getTrisCount = function () {
         return trisPerGeometry * pub.getModelCount();
     };
 
-	/**
-	 * Not implemented
-	 */
+    /**
+     * Not implemented
+     */
     pub.setMaterial = function (type, shading) {
 
     };
 
-	/**
-	 * Sets geometry
-	 * @param {string} geometry Sets geometry
-	 */
+    /**
+     * Sets geometry
+     * @param {string} geometry Sets geometry
+     */
     pub.setGeometry = function (geometry) {
         switch (geometry) {
             case 'box':
@@ -70,11 +70,11 @@ function X3DOMFrame() {
         }
     };
 
-	/**
-	 * Adds a model
-	 * @param n Number of models to spawn
-	 * @param scale Scaling vector
-	 */
+    /**
+     * Adds a model
+     * @param n Number of models to spawn
+     * @param scale Scaling vector
+     */
     pub.addModel = function (n, scale) {
         n = n || 1;
 
@@ -105,11 +105,11 @@ function X3DOMFrame() {
         masterTrans.append(html);
     };
 
-	/**
-	 * Load a X3D file
-	 * @param {string} x3dFile The file
-	 * @param {function} callback
-	 */
+    /**
+     * Load a X3D file
+     * @param {string} x3dFile The file
+     * @param {function} callback
+     */
     pub.loadModel = function (x3dFile, callback) {
         model = '<inline url="../../res/' +  x3dFile + '"></inline>';
         callback();
@@ -124,11 +124,11 @@ function X3DOMFrame() {
         return;
     };
 
-	/**
-	 * Picking test
-	 * @param n Number of models to spawn
-	 * @param scale Scaling vector
-	 */
+    /**
+     * Picking test
+     * @param n Number of models to spawn
+     * @param scale Scaling vector
+     */
     pub.pickingTest = function (n, scale) {
         bindMouseHandlers({
             'onClick': "onPick(event)",
@@ -138,10 +138,10 @@ function X3DOMFrame() {
         pub.addModel(n, scale);
     }
 
-	/**
-	 * Tests which X3DOM backend is used
-	 * @returns {string} Name of X3DOM backend or 'UNSUPPORTED'
-	 */
+    /**
+     * Tests which X3DOM backend is used
+     * @returns {string} Name of X3DOM backend or 'UNSUPPORTED'
+     */
     pub.browserSupportTest = function () {
         if (x3d.runtime) {
             return 'SUPPORTED_' + x3d.runtime.backendName().toUpperCase();
@@ -150,19 +150,19 @@ function X3DOMFrame() {
         }
     };
 
-	/**
-	 * Realism test
-	 * @param {string} obj Model to load
-	 */
+    /**
+     * Realism test
+     * @param {string} obj Model to load
+     */
     pub.realismTest = function (obj) {
         pub.loadModel(obj, function () {
             pub.addModel();
         });
     };
 
-	/**
-	 * Delegates frames measured by X3DOM to parent frame
-	 */
+    /**
+     * Delegates frames measured by X3DOM to parent frame
+     */
     function pushFramesToParent() {
         setInterval(function () {
             if (window.parent.app.stats) {
@@ -172,26 +172,26 @@ function X3DOMFrame() {
         }, 1000);
     }
 
-	/**
-	 * Returns currently set material
-	 * @returns {string} The material
-	 */
+    /**
+     * Returns currently set material
+     * @returns {string} The material
+     */
     function getMaterial() {
         return '<material diffuseColor="' +  getRandomRGB() + '"></material>';
     }
 
-	/**
-	 * Returns a random RGB value
-	 * @returns {string} Random RGB value
-	 */
+    /**
+     * Returns a random RGB value
+     * @returns {string} Random RGB value
+     */
     function getRandomRGB() {
         return  Math.random() + ',' +  Math.random() + ',' +  Math.random();
     }
 
-	/**
-	 * Helper function: Binds mouse handlers on X3D nodes
-	 * @param {object} handlers Handler, action mapping
-	 */
+    /**
+     * Helper function: Binds mouse handlers on X3D nodes
+     * @param {object} handlers Handler, action mapping
+     */
     function bindMouseHandlers (handlers) {
         var html = [];
         for (var handler in handlers) {
@@ -201,9 +201,9 @@ function X3DOMFrame() {
         mouseHandlers = html.join(' ');
     }
 
-	/**
-	 * On window resize
-	 */
+    /**
+     * On window resize
+     */
     window.addEventListener('resize', function() {
         x3d.style.width = window.innerWidth;
         x3d.style.height = window.innerHeight;
