@@ -1,4 +1,4 @@
-web3d
+WEB3D
 =====
 
 A test environment for X3D (X3DOM) and WebGL (Three.js) used in my bachelor's thesis.
